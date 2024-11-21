@@ -4,6 +4,7 @@ const userNameDisplay = document.querySelector('#user-name')!
 
 let isOpen : boolean
 
+//Reviews
 const reviews: {
     name: string;
     stars: number;
