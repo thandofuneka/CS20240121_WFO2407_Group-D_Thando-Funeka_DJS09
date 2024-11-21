@@ -44,6 +44,74 @@ const you: {
     stayedAt: ['durban', 'johannesburg', 'cape town']
 }
 
+//Properties
+const properties : {
+    image: string;
+    title: string;
+    price: number;
+    location: {
+        firstLine: string;
+        city: string;
+        code: number;
+        country: string;
+    };
+    contactDetails: {
+        phone: number;
+        email: string;
+    };
+    isAvailable: boolean;
+}[] = [
+    {
+        image: '',
+        title: 'Colombian Shack',
+        price: 45,
+        location: {
+            firstLine: 'shack 37',
+            city: 'Bogota',
+            code: 45632,
+            country: 'Colombia'
+        },
+        contactDetails: {
+            phone: 1234567890,
+            email: 'colombian@shack.com'
+        },
+        isAvailable: true
+    },
+    {
+        image: '',
+        title: 'Polish Cottage',
+        price: 34,
+        location: {
+            firstLine: 'no 23',
+            city: 'Gdansk',
+            code: 34903,
+            country: 'Poland'
+        },
+        contactDetails: {
+            phone: 1234567890,
+            email: 'polish@cottage.com'
+        },
+        isAvailable: false
+    },
+    {
+        image: '',
+        title: 'London Flat',
+        price: 23,
+        location: {
+            firstLine: 'flat 15',
+            city: 'London',
+            code: 35433,
+            country: 'United Kingdom'
+        },
+        contactDetails: {
+            phone: 1234567890,
+            email: 'london@flat.com'
+        },
+        isAvailable: true
+    }
+]
+
+
 //Functions
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
 populateUser(you.isReturning, you.firstName + you.lastName)
