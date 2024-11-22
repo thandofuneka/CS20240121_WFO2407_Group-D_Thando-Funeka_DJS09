@@ -2,6 +2,7 @@
 const reviewTotalDisplay = document.querySelector('#reviews') as HTMLElement
 const returningUserDisplay = document.querySelector('#returning-user') as HTMLElement
 const userNameDisplay = document.querySelector('#user-name') as HTMLElement
+const userName = document.querySelector('#user') as HTMLElement
 
 
 import { LoyaltyUser } from './enum'
@@ -13,7 +14,7 @@ import { Review } from './interface'
 export function showReviewTotal (value : number, reviewer: string, isLoyalty: LoyaltyUser) {
     if (reviewTotalDisplay) {
         const iconDisplay = LoyaltyUser.GOLD_USER ? '⭐' : ' '
-        reviewTotalDisplay.innerHTML = value.toString() + ' Review ' + makeMultiple(value) + '| last reviewed by ' + 
+        reviewTotalDisplay.innerHTML = value.toString() + ' Review' + makeMultiple(value) + '| last reviewed by ' + 
         reviewer + ' '+ iconDisplay
     }
 }
@@ -22,8 +23,9 @@ export function populateUser(isReturning: boolean, userName: string) {
     if (returningUserDisplay && isReturning === true) {
         returningUserDisplay.innerHTML = 'back'
     }
-    
-    userNameDisplay.innerHTML = userName;
+    if (userNameDisplay) {
+        userNameDisplay.innerHTML = userName;
+    }
 }
 
 export function showDetails(authorityStatus: boolean | Permissions, element: HTMLDivElement, price: number) {

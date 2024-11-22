@@ -2,7 +2,7 @@ import { showReviewTotal, populateUser, showDetails, getTopTwoReviews } from './
 import { Permissions, LoyaltyUser } from './enum'
 import { Property, Review, ReviewWithDescription, User } from './interface'
 import { MainProperty } from './classes'
-import './style.css'
+
 
 const propertyContainer = document.querySelector('.properties') as HTMLElement
 const footer = document.querySelector('.footer') as HTMLElement
@@ -131,7 +131,7 @@ button.addEventListener('click', () => addReviews(reviews))
 let currentLocation: [string, string, number] = ['Durban', '12:47', 30]
 footer.innerHTML = currentLocation[0] + ' | ' + currentLocation[1] + ' | ' + currentLocation[2] + '°C'
 
-let yourMainProperty = new MainProperty('./images/Colombia-property.jpeg', 'Colombian Shack', [{
+let yourMainProperty = new MainProperty('./images/Main-image.jpeg', 'South African House', [{
     name: 'Olive',
     stars: 5,
     loyaltyUser: LoyaltyUser.GOLD_USER,
