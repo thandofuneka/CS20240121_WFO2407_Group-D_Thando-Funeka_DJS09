@@ -1,39 +1,41 @@
-import { showReviewTotal, populateUser } from './utils'
+import { showReviewTotal, populateUser, showDetails } from './utils'
 import { Permissions, LoyaltyUser } from './enum'
-import { Price, Country } from './types'
-const propertyContainer = document.querySelector('.properties') as HTMLDivElement
-const footer = document.querySelector('.footer') as HTMLDivElement
+import { Price, Country } from './types' 
+
+const propertyContainer = document.querySelector('.properties') as HTMLElement
+const footer = document.querySelector('.footer') as HTMLElement
 let isLoggedIn : boolean
+isLoggedIn = true
 
 //Reviews
 const reviews: ({
     name: string;
     stars: number;
-    loyaltyUser: boolean;
+    loyaltyUser: LoyaltyUser;
     date: string;
 } | {
     name: string;
     stars: number;
-    loyaltyUser: boolean;
+    loyaltyUser: LoyaltyUser;
     date: string;
     description: string;
 })[] = [
     {
         name: 'Sheia',
         stars: 5,
-        loyaltyUser: true,
+        loyaltyUser: LoyaltyUser.GOLD_USER,
         date: '01-04-2021'
     },
     {
         name: 'Andrzej',
         stars: 3,
-        loyaltyUser: false,
+        loyaltyUser: LoyaltyUser.BRONZE_USER,
         date: '28-03-2021'
     },
     {
         name: 'Omar',
         stars: 4,
-        loyaltyUser: true,
+        loyaltyUser: LoyaltyUser.SILVER_USER,
         date: '27-03-2021',
         description: 'Great hosts, location was a bit further than said'
     },
@@ -44,16 +46,16 @@ const reviews: ({
 const you: {
     firstName: string; 
     lastName: string;
-    permissions: Permissions
-    isReturning: LoyaltyUser;
+    permissions: Permissions;
+    isReturning: boolean;
     age: number;
     stayedAt: string[]
     
 } = {
-    firstName: ' Thando',
+    firstName: 'Thando',
     lastName: 'Funeka',
     permissions: Permissions.ADMIN,
-    isReturning: LoyaltyUser.GOLD_USER,
+    isReturning: true,
     age: 20,
     stayedAt: ['durban', 'johannesburg', 'cape town']
 }
@@ -74,7 +76,7 @@ const properties : {
     isAvailable: boolean;
 }[] = [
     {
-        image: 'images/Colombia-property.jpg',
+        image: './images/Colombia-property.jpeg',
         title: 'Colombian Shack',
         price: 45,
         location: {
@@ -87,7 +89,7 @@ const properties : {
         isAvailable: true
     },
     {
-        image: 'images/Polish-property.jpg',
+        image: './images/Poland-property.jpg',
         title: 'Polish Cottage',
         price: 34,
         location: {
@@ -100,7 +102,7 @@ const properties : {
         isAvailable: false
     },
     {
-        image: 'images/London-property.jpg',
+        image: './images/London-property.jpeg',
         title: 'London Flat',
         price: 23,
         location: {
@@ -116,21 +118,8 @@ const properties : {
 
 
 //Functions
-showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser ? LoyaltyUser.GOLD_USER : LoyaltyUser.BRONZE_USER )
-populateUser(you.isReturning === LoyaltyUser.GOLD_USER, you.firstName + you.lastName)
-
-let authorityStatus: any
-
-isLoggedIn = true
-
-function showDetails(authorityStatus: boolean | Permissions, element: HTMLDivElement, price: number) {
-    if (authorityStatus) {
-        const priceDisplay = document.createElement('div')
-        priceDisplay.innerHTML = price.toString() + '/night'
-        element.appendChild(priceDisplay)
-    }
-}
-
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
+populateUser(you.isReturning, you.firstName + ' ' + you.lastName)
 
 //add properties to the DOM
 for (let i = 0; i < properties.length; i++) {
@@ -141,7 +130,7 @@ for (let i = 0; i < properties.length; i++) {
     image.setAttribute('src', properties[i].image)
     card.appendChild(image)
     propertyContainer.appendChild(card)
-    showDetails(you.permissions, card, properties[i].price)
+    showDetails(you.permissions === Permissions.ADMIN, card, properties[i].price)
 }
 
 //Time, Location and temperature
