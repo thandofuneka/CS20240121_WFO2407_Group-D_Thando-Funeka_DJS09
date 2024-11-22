@@ -1,7 +1,7 @@
 import { showReviewTotal, populateUser } from './utils'
 
-const propertyContainer = document.querySelector('.properties')!
-
+const propertyContainer = document.querySelector('.properties') 
+const footer = document.querySelector('.footer')!
 let isOpen : boolean
 
 //Reviews
@@ -58,10 +58,7 @@ const properties : {
         code: number;
         country: string;
     };
-    contactDetails: {
-        phone: number;
-        email: string;
-    };
+    contactDetails: [number, string];
     isAvailable: boolean;
 }[] = [
     {
@@ -74,10 +71,7 @@ const properties : {
             code: 45632,
             country: 'Colombia'
         },
-        contactDetails: {
-            phone: 1234567890,
-            email: 'colombian@shack.com'
-        },
+        contactDetails: [1234567890, 'colombian@shack.com'],
         isAvailable: true
     },
     {
@@ -90,10 +84,7 @@ const properties : {
             code: 34903,
             country: 'Poland'
         },
-        contactDetails: {
-            phone: 1234567890,
-            email: 'polish@cottage.com'
-        },
+        contactDetails: [1234567890, 'polish@cottage.com'],
         isAvailable: false
     },
     {
@@ -106,10 +97,7 @@ const properties : {
             code: 35433,
             country: 'United Kingdom'
         },
-        contactDetails: {
-            phone: 1234567890,
-            email: 'london@flat.com'
-        },
+        contactDetails: [1234567890, 'london@flat.com'],
         isAvailable: true
     }
 ]
@@ -122,12 +110,19 @@ populateUser(you.isReturning, you.firstName + you.lastName)
 //add properties to the DOM
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div')
+    card.classList.add('card')
     card.innerHTML = properties[i].title
     const image = document.createElement('img')
     image.setAttribute('src', properties[i].image)
     card.appendChild(image)
-    propertyContainer.appendChild(card)
+    propertyContainer?.appendChild(card)
 }
+
+//Time, Location and temperature
+
+let currentLocation: [string, string, number] = ['Durban', '12:47', 30]
+footer.innerHTML = currentLocation[0] + ' | ' + currentLocation[1] + ' | ' + currentLocation[2] + '°C'
+
 
 
 
