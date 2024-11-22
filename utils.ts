@@ -1,10 +1,12 @@
-const reviewTotalDisplay = document.querySelector('#reviews')!
-const returningUserDisplay = document.querySelector('#returning-user')!
-const userNameDisplay = document.querySelector('#user-name')!
+const reviewTotalDisplay = document.querySelector('#reviews') as HTMLDivElement
+const returningUserDisplay = document.querySelector('#returning-user') as HTMLDivElement
+const userNameDisplay = document.querySelector('#user-name') as HTMLDivElement
 
-export function showReviewTotal (value : number, reviewer: string, isLoyalty: boolean) {
-    const iconDisplay = isLoyalty ? '&#9733;' : ''
-    reviewTotalDisplay.innerHTML = 'review total' + value.toString() + '| last reviewed by ' + 
+import { LoyaltyUser } from './enum'
+
+export function showReviewTotal (value : number, reviewer: string, isLoyalty: LoyaltyUser) {
+    const iconDisplay = LoyaltyUser.GOLD_USER ? '⭐' : ' '
+    reviewTotalDisplay.innerHTML = 'review total ' + value.toString() + '| last reviewed by ' + 
     reviewer + ' '+ iconDisplay
 }
 

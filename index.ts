@@ -1,7 +1,7 @@
 import { showReviewTotal, populateUser } from './utils'
-
-const propertyContainer = document.querySelector('.properties') 
-const footer = document.querySelector('.footer')!
+import { Permissions, LoyaltyUser } from './enum'
+const propertyContainer = document.querySelector('.properties') as HTMLDivElement
+const footer = document.querySelector('.footer') as HTMLDivElement
 let isOpen : boolean
 
 //Reviews
@@ -36,13 +36,16 @@ const reviews: {
 const you: {
     firstName: string; 
     lastName: string;
-    isReturning: boolean;
+    permissions: Permissions
+    isReturning: LoyaltyUser;
     age: number;
     stayedAt: string[]
+    
 } = {
     firstName: ' Thando',
     lastName: 'Funeka',
-    isReturning: true,
+    permissions: Permissions.ADMIN,
+    isReturning: LoyaltyUser.GOLD_USER,
     age: 20,
     stayedAt: ['durban', 'johannesburg', 'cape town']
 }
@@ -80,7 +83,7 @@ const properties : {
         price: 34,
         location: {
             firstLine: 'no 23',
-            city: 'Gdansk',
+            city: 'Gdansk', 
             code: 34903,
             country: 'Poland'
         },
@@ -104,8 +107,8 @@ const properties : {
 
 
 //Functions
-showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
-populateUser(you.isReturning, you.firstName + you.lastName)
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser ? LoyaltyUser.GOLD_USER : LoyaltyUser.BRONZE_USER )
+populateUser(you.isReturning === LoyaltyUser.GOLD_USER, you.firstName + you.lastName)
 
 //add properties to the DOM
 for (let i = 0; i < properties.length; i++) {
