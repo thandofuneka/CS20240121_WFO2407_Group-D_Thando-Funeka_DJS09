@@ -22,9 +22,8 @@ export function populateUser(isReturning: boolean, userName: string) {
     if (returningUserDisplay && isReturning === true) {
         returningUserDisplay.innerHTML = 'back'
     }
-    if (userNameDisplay) {
-        userNameDisplay.innerHTML = userName;
-    }
+    
+    userNameDisplay.innerHTML = userName;
 }
 
 export function showDetails(authorityStatus: boolean | Permissions, element: HTMLDivElement, price: number) {

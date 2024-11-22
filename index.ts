@@ -1,12 +1,16 @@
 import { showReviewTotal, populateUser, showDetails, getTopTwoReviews } from './utils'
 import { Permissions, LoyaltyUser } from './enum'
 import { Property, Review, ReviewWithDescription, User } from './interface'
+import { MainProperty } from './classes'
+import './style.css'
 
 const propertyContainer = document.querySelector('.properties') as HTMLElement
 const footer = document.querySelector('.footer') as HTMLElement
 const reviewsContainer = document.querySelector('.reviews') as HTMLElement
 const button = document.querySelector('button') as HTMLButtonElement
 const container = document.querySelector('.container') as HTMLElement
+const mainImage = document.querySelector('#main-image') as HTMLImageElement
+
 let isLoggedIn : boolean
 isLoggedIn = true
 
@@ -126,6 +130,18 @@ button.addEventListener('click', () => addReviews(reviews))
 
 let currentLocation: [string, string, number] = ['Durban', '12:47', 30]
 footer.innerHTML = currentLocation[0] + ' | ' + currentLocation[1] + ' | ' + currentLocation[2] + '°C'
+
+let yourMainProperty = new MainProperty('./images/Colombia-property.jpeg', 'Colombian Shack', [{
+    name: 'Olive',
+    stars: 5,
+    loyaltyUser: LoyaltyUser.GOLD_USER,
+    date: '12-04-2021'
+}])
+
+const image = document.createElement('img')
+image.setAttribute('src', yourMainProperty.src)
+mainImage.appendChild(image)
+
 
 
 
