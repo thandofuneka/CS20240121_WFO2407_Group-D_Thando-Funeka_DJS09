@@ -2,7 +2,7 @@ import { showReviewTotal, populateUser } from './utils'
 import { Permissions, LoyaltyUser } from './enum'
 const propertyContainer = document.querySelector('.properties') as HTMLDivElement
 const footer = document.querySelector('.footer') as HTMLDivElement
-let isOpen : boolean
+let isLoggedIn : boolean
 
 //Reviews
 const reviews: ({
@@ -117,6 +117,19 @@ const properties : {
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser ? LoyaltyUser.GOLD_USER : LoyaltyUser.BRONZE_USER )
 populateUser(you.isReturning === LoyaltyUser.GOLD_USER, you.firstName + you.lastName)
 
+let authorityStatus: any
+
+isLoggedIn = true
+
+function showDetails(authorityStatus: boolean | Permissions, element: HTMLDivElement, price: number) {
+    if (authorityStatus) {
+        const priceDisplay = document.createElement('div')
+        priceDisplay.innerHTML = price.toString() + '/night'
+        element.appendChild(priceDisplay)
+    }
+}
+
+
 //add properties to the DOM
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div')
@@ -125,7 +138,8 @@ for (let i = 0; i < properties.length; i++) {
     const image = document.createElement('img')
     image.setAttribute('src', properties[i].image)
     card.appendChild(image)
-    propertyContainer?.appendChild(card)
+    propertyContainer.appendChild(card)
+    showDetails(you.permissions, card, properties[i].price)
 }
 
 //Time, Location and temperature
