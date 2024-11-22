@@ -1,25 +1,17 @@
-import { showReviewTotal, populateUser, showDetails } from './utils'
+import { showReviewTotal, populateUser, showDetails, getTopTwoReviews } from './utils'
 import { Permissions, LoyaltyUser } from './enum'
-import { Price, Country } from './types' 
+import { Property, Review, ReviewWithDescription, User } from './interface'
 
 const propertyContainer = document.querySelector('.properties') as HTMLElement
 const footer = document.querySelector('.footer') as HTMLElement
+const reviewsContainer = document.querySelector('.reviews') as HTMLElement
+const button = document.querySelector('button') as HTMLButtonElement
+const container = document.querySelector('.container') as HTMLElement
 let isLoggedIn : boolean
 isLoggedIn = true
 
 //Reviews
-const reviews: ({
-    name: string;
-    stars: number;
-    loyaltyUser: LoyaltyUser;
-    date: string;
-} | {
-    name: string;
-    stars: number;
-    loyaltyUser: LoyaltyUser;
-    date: string;
-    description: string;
-})[] = [
+const reviews: (Review | ReviewWithDescription)[] = [
     {
         name: 'Sheia',
         stars: 5,
@@ -43,16 +35,8 @@ const reviews: ({
 
 //Solutions
 
-const you: {
-    firstName: string; 
-    lastName: string;
-    permissions: Permissions;
-    isReturning: boolean;
-    age: number;
-    stayedAt: string[]
-    
-} = {
-    firstName: 'Thando',
+const you: User = {
+    firstName: ' Thando',
     lastName: 'Funeka',
     permissions: Permissions.ADMIN,
     isReturning: true,
@@ -62,19 +46,7 @@ const you: {
 
 
 //Properties
-const properties : {
-    image: string;
-    title: string;
-    price: Price;
-    location: {
-        firstLine: string;
-        city: string;
-        code: number;
-        country: Country;
-    };
-    contactDetails: [number, string];
-    isAvailable: boolean;
-}[] = [
+const properties : Property[] = [
     {
         image: './images/Colombia-property.jpeg',
         title: 'Colombian Shack',
@@ -119,7 +91,8 @@ const properties : {
 
 //Functions
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
-populateUser(you.isReturning, you.firstName + ' ' + you.lastName)
+populateUser(you.isReturning, you.firstName)
+
 
 //add properties to the DOM
 for (let i = 0; i < properties.length; i++) {
@@ -132,6 +105,22 @@ for (let i = 0; i < properties.length; i++) {
     propertyContainer.appendChild(card)
     showDetails(you.permissions === Permissions.ADMIN, card, properties[i].price)
 }
+
+let count = 0
+function addReviews(array: (Review | ReviewWithDescription)[] ) : void {
+    if (!count) {
+        count++
+        const topTwo = getTopTwoReviews(array)
+        for (let i = 0; i < topTwo.length; i++) {
+            const card = document.createElement('div')
+            card.classList.add('review-card')
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
+            reviewsContainer?.appendChild(card)
+        }
+        container?.removeChild(button)
+    }
+}
+button.addEventListener('click', () => addReviews(reviews))
 
 //Time, Location and temperature
 

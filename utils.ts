@@ -3,7 +3,9 @@ const reviewTotalDisplay = document.querySelector('#reviews') as HTMLElement
 const returningUserDisplay = document.querySelector('#returning-user') as HTMLElement
 const userNameDisplay = document.querySelector('#user-name') as HTMLElement
 
+
 import { LoyaltyUser } from './enum'
+import { Review } from './interface'
 
 
 
@@ -11,7 +13,7 @@ import { LoyaltyUser } from './enum'
 export function showReviewTotal (value : number, reviewer: string, isLoyalty: LoyaltyUser) {
     if (reviewTotalDisplay) {
         const iconDisplay = LoyaltyUser.GOLD_USER ? '⭐' : ' '
-        reviewTotalDisplay.innerHTML = value.toString() + ' Review' + makeMultiple(value) + '| last reviewed by ' + 
+        reviewTotalDisplay.innerHTML = value.toString() + ' Review ' + makeMultiple(value) + '| last reviewed by ' + 
         reviewer + ' '+ iconDisplay
     }
 }
@@ -39,5 +41,9 @@ export function makeMultiple(value: number) : string {
     } else return ''
 }
 
+export function getTopTwoReviews(reviews: Review[] ) : Review[] {
+    const sortedReviews = reviews.sort((a, b) => b.stars - a.stars)
+    return sortedReviews.slice(0, 2)
+}
 
 
