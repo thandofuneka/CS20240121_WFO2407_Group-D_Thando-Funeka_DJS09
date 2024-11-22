@@ -5,12 +5,18 @@ const footer = document.querySelector('.footer') as HTMLDivElement
 let isOpen : boolean
 
 //Reviews
-const reviews: {
+const reviews: ({
     name: string;
     stars: number;
     loyaltyUser: boolean;
     date: string;
-}[] = [
+} | {
+    name: string;
+    stars: number;
+    loyaltyUser: boolean;
+    date: string;
+    description: string;
+})[] = [
     {
         name: 'Sheia',
         stars: 5,
@@ -27,7 +33,8 @@ const reviews: {
         name: 'Omar',
         stars: 4,
         loyaltyUser: true,
-        date: '27-03-2021'
+        date: '27-03-2021',
+        description: 'Great hosts, location was a bit further than said'
     },
 ]
 
