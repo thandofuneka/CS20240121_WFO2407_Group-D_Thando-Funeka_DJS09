@@ -1,5 +1,6 @@
 import { showReviewTotal, populateUser } from './utils'
 import { Permissions, LoyaltyUser } from './enum'
+import { Price, Country } from './types'
 const propertyContainer = document.querySelector('.properties') as HTMLDivElement
 const footer = document.querySelector('.footer') as HTMLDivElement
 let isLoggedIn : boolean
@@ -57,16 +58,17 @@ const you: {
     stayedAt: ['durban', 'johannesburg', 'cape town']
 }
 
+
 //Properties
 const properties : {
     image: string;
     title: string;
-    price: number;
+    price: Price;
     location: {
         firstLine: string;
         city: string;
         code: number;
-        country: string;
+        country: Country;
     };
     contactDetails: [number, string];
     isAvailable: boolean;
