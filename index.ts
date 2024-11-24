@@ -89,6 +89,19 @@ const properties : Property[] = [
         },
         contactDetails: [1234567890, 'london@flat.com'],
         isAvailable: true
+    },
+    {
+        image: './images/Malia-hotel.jpeg',
+        title: 'Malia Hotel',
+        price: 35,
+        location: {
+            firstLine: 'Room 4',
+            city: 'Malia',
+            code: 35433,
+            country: 'Malaysia'
+        },
+        contactDetails: [1234567890, 'malia@hotel.com'],
+        isAvailable: false
     }
 ]
 
